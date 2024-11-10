@@ -1,20 +1,23 @@
 import { Response } from "express";
 
-const sendResponse = <T>(
-  res: Response,
-  jsonData: {
-    statusCode: number;
-    success: boolean;
-    message: string;
-    data: T | null | undefined;
-  }
-) => {
-  res.status(jsonData.statusCode).json({
+interface TResponnse<T> {
+  status: number;
+  success: boolean;
+  message: string;
+  data?: T;
+}
+
+const sendResponse = <T>(res: Response, jsonData: TResponnse<T>) => {
+  const response: TResponnse<T> = {
     success: jsonData.success,
-    status: jsonData.statusCode,
+    status: jsonData.status,
     message: jsonData.message,
-    data: jsonData.data || null || undefined,
-  });
+  };
+
+  if (jsonData.data !== undefined) {
+    response.data = jsonData.data;
+  }
+  res.status(jsonData.status).json(response);
 };
 
 export default sendResponse;

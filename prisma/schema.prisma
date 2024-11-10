@@ -50,5 +50,5 @@ model BorrowRecord {
   member Member @relation(fields: [memberId], references: [memberId])
 
   //table name
-  @@map("borrow-records")
+  @@map("borrow_records")
 }
