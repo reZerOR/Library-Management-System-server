@@ -15,11 +15,25 @@ const createBorrow = async (payload: TBorrowBody) => {
   });
   const result = await prisma.borrowRecord.create({
     data: payload,
+    select: {
+        bookId: true,
+        memberId:true,
+        borrowDate: true,
+        borrowId: true
+    }
   });
   return result;
 };
-const retrunBook = () => {
-  return "";
+const retrunBook = async(payload: {borrowId: string}) => {
+    const result = await prisma.borrowRecord.update({
+        where: {
+            borrowId: payload.borrowId
+        },
+        data: {
+            returnDate: new Date()
+        }
+    })
+  return result;
 };
 const overdueBooks = () => {
   return "";

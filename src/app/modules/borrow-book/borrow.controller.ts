@@ -12,12 +12,11 @@ const createBorrow = catchAsync(async (req, res) => {
   });
 });
 const retrunBook = catchAsync(async (req, res) => {
-  const result = await BorrowServices.retrunBook();
+  await BorrowServices.retrunBook(req.body);
   sendResponse(res, {
     success: true,
     status: 200,
     message: "Book returned successfully",
-    data: result,
   });
 });
 const overdueBooks = catchAsync(async (req, res) => {
@@ -31,7 +30,7 @@ const overdueBooks = catchAsync(async (req, res) => {
 });
 
 export const BorrowController = {
-    createBorrow,
-    retrunBook,
-    overdueBooks
-}
+  createBorrow,
+  retrunBook,
+  overdueBooks,
+};
