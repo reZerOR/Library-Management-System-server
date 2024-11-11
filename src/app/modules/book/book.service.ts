@@ -28,8 +28,14 @@ const bookById = async(bookId: string) => {
   return result;
 };
 
-const updateBook = () => {
-  return "";
+const updateBook =async (bookId: string, payload: TBookBody) => {
+  const result = await prisma.book.update({
+    where:{
+      bookId
+    },
+    data: payload
+  })
+  return result;
 };
 
 const deleteBook = () => {

@@ -31,7 +31,8 @@ const bookById = catchAsync(async (req, res) => {
   });
 });
 const updateBook = catchAsync(async (req, res) => {
-  const result = await BookServices.updateBook();
+  const {bookId} = req.params
+  const result = await BookServices.updateBook(bookId as string, req.body);
   sendResponse(res, {
     success: true,
     status: 200,
