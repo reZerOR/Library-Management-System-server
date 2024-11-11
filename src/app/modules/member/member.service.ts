@@ -39,7 +39,8 @@ const updateMember = async (
   });
   return result;
 };
-const deleteMember = () => {
+const deleteMember = async (memberId: string) => {
+  const result = await prisma.member.delete({ where: { memberId } });
   return "";
 };
 

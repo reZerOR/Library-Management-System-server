@@ -41,12 +41,12 @@ const updateMember = catchAsync(async (req, res) => {
   });
 });
 const deleteMember = catchAsync(async (req, res) => {
-  const result = await MemberServices.deleteMember();
+  const { memberId } = req.params;
+  await MemberServices.deleteMember(memberId);
   sendResponse(res, {
     success: true,
     status: 200,
-    message: "Member created successfully",
-    data: result,
+    message: "Member successfully deleted",
   });
 });
 
