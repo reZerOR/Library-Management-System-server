@@ -21,7 +21,8 @@ const allMember = catchAsync(async (_req, res) => {
   });
 });
 const memberById = catchAsync(async (req, res) => {
-  const result = await MemberServices.memberById();
+  const { memberId } = req.params;
+  const result = await MemberServices.memberById(memberId);
   sendResponse(res, {
     success: true,
     status: 200,
