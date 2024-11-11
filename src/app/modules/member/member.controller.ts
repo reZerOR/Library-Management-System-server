@@ -31,7 +31,8 @@ const memberById = catchAsync(async (req, res) => {
   });
 });
 const updateMember = catchAsync(async (req, res) => {
-  const result = await MemberServices.updateMember();
+  const { memberId } = req.params;
+  const result = await MemberServices.updateMember(memberId, req.body);
   sendResponse(res, {
     success: true,
     status: 200,

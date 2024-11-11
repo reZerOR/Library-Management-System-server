@@ -21,8 +21,23 @@ const memberById = async (memberId: string) => {
   });
   return result;
 };
-const updateMember = () => {
-  return "";
+const updateMember = async (
+  memberId: string,
+  payload: Omit<TMemberBody, "membershipDate">
+) => {
+  const result = await prisma.member.update({
+    where: {
+      memberId,
+    },
+    data: payload,
+    select: {
+      memberId: true,
+      name: true,
+      email: true,
+      phone: true,
+    },
+  });
+  return result;
 };
 const deleteMember = () => {
   return "";
