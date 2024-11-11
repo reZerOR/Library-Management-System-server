@@ -19,12 +19,12 @@ const retrunBook = catchAsync(async (req, res) => {
     message: "Book returned successfully",
   });
 });
-const overdueBooks = catchAsync(async (req, res) => {
+const overdueBooks = catchAsync(async (_req, res) => {
   const result = await BorrowServices.overdueBooks();
   sendResponse(res, {
     success: true,
     status: 200,
-    message: "Overdue borrow list fetched",
+    message: result.length > 0 ?"Overdue borrow list fetched": "No overdue books",
     data: result,
   });
 });

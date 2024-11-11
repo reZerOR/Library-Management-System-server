@@ -14,38 +14,36 @@ const createBook = async (payload: TBookBody) => {
   return result;
 };
 
-const allBook = async() => {
-  const result = await prisma.book.findMany()
-  return result
+const allBook = async () => {
+  const result = await prisma.book.findMany();
+  return result;
 };
 
-const bookById = async(bookId: string) => {
+const bookById = async (bookId: string) => {
   const result = await prisma.book.findUnique({
     where: {
-      bookId
-    }
-  })
-  return result;
-};
-
-const updateBook =async (bookId: string, payload: TBookBody) => {
-  const result = await prisma.book.update({
-    where:{
-      bookId
+      bookId,
     },
-    data: payload
-  })
+  });
   return result;
 };
 
-const deleteBook = async(bookId:string) => {
+const updateBook = async (bookId: string, payload: TBookBody) => {
+  const result = await prisma.book.update({
+    where: {
+      bookId,
+    },
+    data: payload,
+  });
+  return result;
+};
+
+const deleteBook = async (bookId: string) => {
   const result = await prisma.book.delete({
-    where:{
-      bookId
-    }
-  })
-  console.log(result);
-  
+    where: {
+      bookId,
+    },
+  });
   return result;
 };
 

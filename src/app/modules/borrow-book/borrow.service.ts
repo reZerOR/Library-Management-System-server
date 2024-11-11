@@ -16,27 +16,58 @@ const createBorrow = async (payload: TBorrowBody) => {
   const result = await prisma.borrowRecord.create({
     data: payload,
     select: {
-        bookId: true,
-        memberId:true,
-        borrowDate: true,
-        borrowId: true
-    }
+      bookId: true,
+      memberId: true,
+      borrowDate: true,
+      borrowId: true,
+    },
   });
   return result;
 };
-const retrunBook = async(payload: {borrowId: string}) => {
-    const result = await prisma.borrowRecord.update({
-        where: {
-            borrowId: payload.borrowId
-        },
-        data: {
-            returnDate: new Date()
-        }
-    })
+const retrunBook = async (payload: { borrowId: string }) => {
+  const result = await prisma.borrowRecord.update({
+    where: {
+      borrowId: payload.borrowId,
+    },
+    data: {
+      returnDate: new Date(),
+    },
+  });
   return result;
 };
-const overdueBooks = () => {
-  return "";
+const overdueBooks = async () => {
+  const fourteenDaysAgo = new Date().getTime() - 14 * 24 * 60 * 60 * 1000;
+  const result = await prisma.borrowRecord.findMany({
+    where: {
+      borrowDate: { lte: new Date(fourteenDaysAgo) },
+      returnDate: null,
+    },
+    include: {
+      book: {
+        select: { title: true },
+      },
+      member: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  if(result.length > 0) {
+    const formateData = result.map(data => {
+        const duedate = new Date(data.borrowDate.getTime() + 14 * 24 * 60 * 60 * 1000)
+        const overdueDays = Math.floor((new Date().getTime() - duedate.getTime())/(24 * 60 * 60 * 1000))
+        return {
+            borrowId: data.borrowId,
+            bookTitle: data.book.title,
+            borrowerName: data.member.name,
+            overdueDays
+        }
+    })
+    return formateData
+  }
+  return result;
 };
 
 export const BorrowServices = {
