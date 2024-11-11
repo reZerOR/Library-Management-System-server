@@ -7,11 +7,11 @@ const router = Router();
 
 const moduleRoutes: { path: string; route: Router }[] = [
   {
-    path: "books",
+    path: "/books",
     route: BookRoutes,
   },
   {
-    path: "members",
+    path: "/members",
     route: MemberRoutes,
   },
   {

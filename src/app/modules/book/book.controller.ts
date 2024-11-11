@@ -2,8 +2,8 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { BookServices } from "./book.service";
 
-const createBook = catchAsync(async (_req, res) => {
-  const result = await BookServices.createBook();
+const createBook = catchAsync(async (req, res) => {
+  const result = await BookServices.createBook(req.body);
   sendResponse(res, {
     success: true,
     status: 201,
