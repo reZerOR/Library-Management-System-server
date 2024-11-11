@@ -3,16 +3,22 @@ import prisma from "../../utils/prismaClient";
 
 interface TBorrowBody extends Pick<BorrowRecord, "bookId" | "memberId"> {}
 const createBorrow = async (payload: TBorrowBody) => {
-  await prisma.book.findUniqueOrThrow({
+ const isBookExists =  await prisma.book.findUnique({
     where: {
       bookId: payload.bookId,
     },
   });
-  await prisma.member.findUniqueOrThrow({
+  if(!isBookExists){
+    throw new Error("Book not found")
+  }
+  const isMemberExists = await prisma.member.findUnique({
     where: {
       memberId: payload.memberId,
     },
   });
+  if(!isMemberExists){
+    throw new Error("Member not found")
+  }
   const result = await prisma.borrowRecord.create({
     data: payload,
     select: {
