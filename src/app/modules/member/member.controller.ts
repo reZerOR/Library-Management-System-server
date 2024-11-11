@@ -2,8 +2,8 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { MemberServices } from "./member.service";
 
-const createMember = catchAsync(async (_req, res) => {
-  const result = await MemberServices.createMember();
+const createMember = catchAsync(async (req, res) => {
+  const result = await MemberServices.createMember(req.body);
   sendResponse(res, {
     success: true,
     status: 201,
