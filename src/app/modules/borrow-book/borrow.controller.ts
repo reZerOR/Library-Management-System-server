@@ -3,7 +3,7 @@ import sendResponse from "../../utils/sendResponse";
 import { BorrowServices } from "./borrow.service";
 
 const createBorrow = catchAsync(async (req, res) => {
-  const result = await BorrowServices.createBorrow();
+  const result = await BorrowServices.createBorrow(req.body);
   sendResponse(res, {
     success: true,
     status: 200,
