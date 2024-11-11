@@ -14,8 +14,9 @@ const createBook = async (payload: TBookBody) => {
   return result;
 };
 
-const allBook = () => {
-  return "";
+const allBook = async() => {
+  const result = await prisma.book.findMany()
+  return result
 };
 
 const bookById = () => {
