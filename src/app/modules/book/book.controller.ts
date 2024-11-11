@@ -41,12 +41,12 @@ const updateBook = catchAsync(async (req, res) => {
   });
 });
 const deleteBook = catchAsync(async (req, res) => {
-  const result = await BookServices.deleteBook();
+  const {bookId} = req.params
+  await BookServices.deleteBook(bookId as string);
   sendResponse(res, {
     success: true,
     status: 200,
-    message: "Book created successfully",
-    data: result,
+    message: "Book successfully deleted",
   });
 });
 
