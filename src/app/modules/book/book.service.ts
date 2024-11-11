@@ -19,8 +19,13 @@ const allBook = async() => {
   return result
 };
 
-const bookById = () => {
-  return "";
+const bookById = async(bookId: string) => {
+  const result = await prisma.book.findUnique({
+    where: {
+      bookId
+    }
+  })
+  return result;
 };
 
 const updateBook = () => {
