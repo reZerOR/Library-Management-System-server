@@ -4,10 +4,9 @@
 A comprehensive backend API for managing library operations including book management, member management, and borrowing services. Built with Node.js, Express.js, TypeScript, and Prisma ORM, this system provides a robust solution for libraries to digitize their operations.
 
 ## Live URL
-[API Documentation](https://library-management-api.vercel.app)
+[live server](https://library-management-server-coral.vercel.app/)
 
 ## Technology Stack & Packages
-https://library-management-server-coral.vercel.app/
 
 ### Core Technologies
 - Node.js
